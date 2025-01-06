@@ -173,3 +173,111 @@ nav ul li a {
 #controls button:active {
   background-color: #006666;
 }
+/* General styles */
+body {
+  font-family: 'Comic Sans MS', sans-serif;
+  line-height: 1.6;
+  margin: 0;
+  padding: 0;
+  background-color: #f0f8ff;
+  color: #333;
+}
+
+/* Header styles */
+header {
+  background-color: #008080;
+  color: #fff;
+  padding: 1rem;
+  text-align: center;
+}
+
+header h1 {
+  margin: 0;
+  font-size: 2.5rem;
+}
+
+header p {
+  font-style: italic;
+  margin: 0.5rem 0;
+}
+
+nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 1rem 0;
+}
+
+nav ul li {
+  display: inline;
+  margin: 0 1rem;
+}
+
+nav ul li a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+/* Product container styling */
+.product-container {
+  max-width: 600px;
+  margin: 50px auto;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  background-color: #fff;
+}
+
+/* Product image and description styles */
+.product-image {
+  width: 100%;
+  border-radius: 10px;
+}
+
+.product-description {
+  font-size: 1.2rem;
+  color: #007bff;
+  cursor: pointer;
+  text-decoration: underline;
+  margin: 10px 0;
+}
+
+.product-price {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #28a745;
+}
+
+/* Venmo link styling */
+.venmo-link {
+  display: inline-block;
+  margin-top: 20px;
+  font-size: 1rem;
+  color: #007bff;
+  text-decoration: none;
+}
+
+.venmo-link:hover {
+  text-decoration: underline;
+}
+
+/* Footer styles */
+footer {
+  background-color: #008080;
+  color: #fff;
+  text-align: center;
+  padding: 1rem;
+  margin-top: 2rem;
+}
+
+/* General styling for the product description popup */
+.product-description {
+  font-size: 1rem;
+  text-align: center;
+}
+
+/* Link hover effect */
+a:hover {
+  text-decoration: underline;
+}
