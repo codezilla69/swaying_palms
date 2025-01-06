@@ -71,7 +71,7 @@
 
     let coconutX = Math.random() * (canvas.width - 50); // Leave room for image width
     let coconutY = 0;
-    const coconutSpeed = 3; // Fixed speed
+    const coconutSpeed = 2; // Fixed speed
     let rotation = 0; // For spinning the image
 
     let score = 0;
@@ -99,7 +99,7 @@
       ctx.drawImage(headImage, -imageWidth / 2, -imageHeight / 2, imageWidth, imageHeight); // Draw the image
       ctx.restore(); // Restore the canvas state
 
-      rotation += 0.1; // Increment the rotation angle to spin the image
+      rotation += 0.05; // Increment the rotation angle to spin the image
     }
 
     // Display the score
@@ -196,7 +196,7 @@
     }
 
     // Initial start message
-    displayMessage("Catch 8 coconuts to be cleared. Click to begin!");
+    displayMessage("Catch 8 coconuts to be cleared.\nClick to begin!");
   </script>
 </body>
 </html>
