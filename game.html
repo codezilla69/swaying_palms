@@ -71,7 +71,7 @@
 
     let coconutX = Math.random() * (canvas.width - 50);
     let coconutY = 0;
-    let coconutSpeed = 2; // Initial coconut speed
+    let coconutSpeed = 2.5; // Initial coconut speed
     let rotation = 0;
 
     let score = 0;
@@ -167,7 +167,7 @@
         score++; // Increment score
         coconutX = Math.random() * (canvas.width - 50); // Reset coconut position
         coconutY = 0;
-        coconutSpeed += 0.5; // Increase speed after each successful catch
+        coconutSpeed += 0.25; // Increase speed after each successful catch
       }
 
       // Check if coconut hits the ground
@@ -185,7 +185,7 @@
       score = 0;
       coconutX = Math.random() * (canvas.width - 50);
       coconutY = 0;
-      coconutSpeed = 2; // Reset speed to initial value
+      coconutSpeed = 2.5; // Reset speed to initial value
       updateGame();
     }
 
