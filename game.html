@@ -60,7 +60,7 @@
     <p>© 2025 Swaying Palms LLC. Keep catching those coconuts!</p>
   </footer>
   <script>
-    // JavaScript remains unchanged
+    // JavaScript for the game logic
     const canvas = document.getElementById("gameCanvas");
     const ctx = canvas.getContext("2d");
 
@@ -71,7 +71,7 @@
 
     let coconutX = Math.random() * (canvas.width - 50);
     let coconutY = 0;
-    const coconutSpeed = 3;
+    let coconutSpeed = 2; // Initial coconut speed
     let rotation = 0;
 
     let score = 0;
@@ -156,25 +156,28 @@
       drawCoconut();
       drawScore();
 
-      coconutY += coconutSpeed;
+      coconutY += coconutSpeed; // Coconut falls at the current speed
 
+      // Check for a successful catch
       if (
         coconutY + 50 >= canvas.height - basketHeight - 10 &&
         coconutX >= basketX &&
         coconutX <= basketX + basketWidth
       ) {
-        score++;
-        coconutX = Math.random() * (canvas.width - 50);
+        score++; // Increment score
+        coconutX = Math.random() * (canvas.width - 50); // Reset coconut position
         coconutY = 0;
+        coconutSpeed += 0.5; // Increase speed after each successful catch
       }
 
+      // Check if coconut hits the ground
       if (coconutY > canvas.height) {
         isGameOver = true;
         displayMessage(`Game Over! Coconuts Collected: ${score}`);
         return;
       }
 
-      requestAnimationFrame(updateGame);
+      requestAnimationFrame(updateGame); // Continue the game loop
     }
 
     function resetGame() {
@@ -182,6 +185,7 @@
       score = 0;
       coconutX = Math.random() * (canvas.width - 50);
       coconutY = 0;
+      coconutSpeed = 2; // Reset speed to initial value
       updateGame();
     }
 
