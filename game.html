@@ -2,16 +2,18 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
   <title>Catch the Coconut - Cycling Sobriety Test</title>
   <link rel="stylesheet" href="styles.css">
   <style>
-    /* Game styles */
+    /* Responsive adjustments */
     #gameCanvas {
-      background-color: #87CEEB; /* Light blue sky */
+      background-color: #87CEEB;
       border: 2px solid #008080;
       display: block;
-      margin: 2rem auto;
+      margin: 1rem auto;
+      max-width: 90%;
+      height: auto;
     }
     #controls {
       display: flex;
@@ -28,6 +30,7 @@
       padding: 10px 20px;
       cursor: pointer;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      touch-action: manipulation; /* Prevent zooming */
     }
     #controls button:active {
       background-color: #006666;
@@ -41,8 +44,6 @@
     <nav>
       <ul>
         <li><a href="index.html">Home</a></li>
-        <li><a href="#about">Mission Statement</a></li>
-        <li><a href="#contact">Contact</a></li>
         <li><a href="game.html">Cycling Sobriety Test</a></li>
         <li><a href="team.html">Meet the Team</a></li>
       </ul>
@@ -50,61 +51,54 @@
   </header>
   <main>
     <canvas id="gameCanvas" width="400" height="500"></canvas>
-
-    <!-- On-screen Controls -->
     <div id="controls">
-      <button id="leftButton">⬅️</button>
-      <button id="rightButton">➡️</button>
+      <button id="leftButton">⬅</button>
+      <button id="rightButton">➡</button>
     </div>
   </main>
   <footer>
     <p>© 2025 Swaying Palms LLC. Keep catching those coconuts!</p>
   </footer>
   <script>
-    // Select canvas and context
+    // JavaScript remains unchanged
     const canvas = document.getElementById("gameCanvas");
     const ctx = canvas.getContext("2d");
 
-    // Game variables
     let basketX = canvas.width / 2 - 50;
     const basketWidth = 100;
     const basketHeight = 20;
     const basketSpeed = 20;
 
-    let coconutX = Math.random() * (canvas.width - 50); // Leave room for image width
+    let coconutX = Math.random() * (canvas.width - 50);
     let coconutY = 0;
-    const coconutSpeed = 2; // Fixed speed
-    let rotation = 0; // For spinning the image
+    const coconutSpeed = 2;
+    let rotation = 0;
 
     let score = 0;
     let isGameOver = false;
     let isGameStarted = false;
 
-    // Load the friend's head image
     const headImage = new Image();
     headImage.src = "game.png";
 
-    // Draw the basket
     function drawBasket() {
-      ctx.fillStyle = "#8B4513"; // Brown basket
+      ctx.fillStyle = "#8B4513";
       ctx.fillRect(basketX, canvas.height - basketHeight - 10, basketWidth, basketHeight);
     }
 
-    // Draw the spinning head
     function drawCoconut() {
-      const imageWidth = 50; // Adjust the size of the head image
+      const imageWidth = 50;
       const imageHeight = 50;
 
-      ctx.save(); // Save the canvas state
-      ctx.translate(coconutX + imageWidth / 2, coconutY + imageHeight / 2); // Move to the center of the image
-      ctx.rotate(rotation); // Rotate the canvas
-      ctx.drawImage(headImage, -imageWidth / 2, -imageHeight / 2, imageWidth, imageHeight); // Draw the image
-      ctx.restore(); // Restore the canvas state
+      ctx.save();
+      ctx.translate(coconutX + imageWidth / 2, coconutY + imageHeight / 2);
+      ctx.rotate(rotation);
+      ctx.drawImage(headImage, -imageWidth / 2, -imageHeight / 2, imageWidth, imageHeight);
+      ctx.restore();
 
-      rotation += 0.05; // Increment the rotation angle to spin the image
+      rotation += 0.05;
     }
 
-    // Display the score
     function drawScore() {
       ctx.font = "20px Comic Sans MS";
       ctx.fillStyle = "#008080";
@@ -112,16 +106,14 @@
       ctx.fillText("Score: " + score, canvas.width / 2, 30);
     }
 
-    // Display Game Over or Start Message
     function displayMessage(message) {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       ctx.font = "20px Comic Sans MS";
-      ctx.fillStyle = "#FF6347"; // Red color for the message
+      ctx.fillStyle = "#FF6347";
       ctx.textAlign = "center";
       ctx.fillText(message, canvas.width / 2, canvas.height / 2);
     }
 
-    // Move the basket
     document.addEventListener("keydown", function (event) {
       if (event.key === "ArrowLeft" && basketX > 0) {
         basketX -= basketSpeed;
@@ -131,7 +123,6 @@
       }
     });
 
-    // On-screen button controls
     const leftButton = document.getElementById("leftButton");
     const rightButton = document.getElementById("rightButton");
 
@@ -147,7 +138,6 @@
       }
     });
 
-    // Start the game on click
     canvas.addEventListener("click", () => {
       if (!isGameStarted) {
         isGameStarted = true;
@@ -158,11 +148,10 @@
       }
     });
 
-    // Update the game
     function updateGame() {
       if (isGameOver) return;
 
-      ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear the canvas
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
       drawBasket();
       drawCoconut();
       drawScore();
@@ -170,12 +159,12 @@
       coconutY += coconutSpeed;
 
       if (
-        coconutY + 50 >= canvas.height - basketHeight - 10 && // Account for image height
+        coconutY + 50 >= canvas.height - basketHeight - 10 &&
         coconutX >= basketX &&
         coconutX <= basketX + basketWidth
       ) {
         score++;
-        coconutX = Math.random() * (canvas.width - 50); // Reset position
+        coconutX = Math.random() * (canvas.width - 50);
         coconutY = 0;
       }
 
@@ -188,7 +177,6 @@
       requestAnimationFrame(updateGame);
     }
 
-    // Reset the game
     function resetGame() {
       isGameOver = false;
       score = 0;
@@ -197,7 +185,6 @@
       updateGame();
     }
 
-    // Initial start message
     displayMessage("Click to begin!");
   </script>
 </body>
