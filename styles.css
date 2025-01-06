@@ -281,3 +281,8 @@ footer {
 a:hover {
   text-decoration: underline;
 }
+/* Reset the link styles for product descriptions */
+.product-description {
+  color: inherit; /* Inherit color from the parent (body or container) */
+  text-decoration: none; /* Remove underline */
+}
