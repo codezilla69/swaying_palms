@@ -72,7 +72,7 @@
     let coconutX = Math.random() * (canvas.width - 20);
     let coconutY = 0;
     const coconutRadius = 10;
-    let coconutSpeed = 3;
+    const coconutSpeed = 3; // Fixed speed for the coconut
 
     let score = 0;
     let isGameOver = false;
@@ -97,7 +97,8 @@
     function drawScore() {
       ctx.font = "20px Comic Sans MS";
       ctx.fillStyle = "#008080";
-      ctx.fillText("Score: " + score, 10, 30);
+      ctx.textAlign = "center";
+      ctx.fillText("Score: " + score, canvas.width / 2, 30);
     }
 
     // Display Game Over or Start Message
@@ -163,14 +164,13 @@
         coconutX <= basketX + basketWidth
       ) {
         score++;
-        coconutSpeed += 0.5;
         coconutX = Math.random() * (canvas.width - 20);
         coconutY = 0;
       }
 
       if (coconutY > canvas.height) {
         isGameOver = true;
-        displayMessage("Game Over! Click to Restart.");
+        displayMessage(`Game Over! Coconuts Collected: ${score}`);
         return;
       }
 
@@ -181,7 +181,6 @@
     function resetGame() {
       isGameOver = false;
       score = 0;
-      coconutSpeed = 3;
       coconutX = Math.random() * (canvas.width - 20);
       coconutY = 0;
       updateGame();
@@ -192,4 +191,5 @@
   </script>
 </body>
 </html>
+
 
