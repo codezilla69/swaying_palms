@@ -42,7 +42,7 @@
       <ul>
         <li><a href="index.html">Home</a></li>
         <li><a href="team.html">Meet the Team</a></li>
-        <li><a href="game.html">Cycling Sobriety Test</a></li>
+        <li><a href="game.html">Play the Game</a></li>
       </ul>
     </nav>
   </header>
@@ -69,14 +69,18 @@
     const basketHeight = 20;
     const basketSpeed = 20;
 
-    let coconutX = Math.random() * (canvas.width - 20);
+    let coconutX = Math.random() * (canvas.width - 50); // Leave room for image width
     let coconutY = 0;
-    const coconutRadius = 10;
-    const coconutSpeed = 3; // Fixed speed for the coconut
+    const coconutSpeed = 3; // Fixed speed
+    let rotation = 0; // For spinning the image
 
     let score = 0;
     let isGameOver = false;
     let isGameStarted = false;
+
+    // Load the friend's head image
+    const headImage = new Image();
+    headImage.src = "game.jpg";
 
     // Draw the basket
     function drawBasket() {
@@ -84,13 +88,18 @@
       ctx.fillRect(basketX, canvas.height - basketHeight - 10, basketWidth, basketHeight);
     }
 
-    // Draw the coconut
+    // Draw the spinning head
     function drawCoconut() {
-      ctx.beginPath();
-      ctx.arc(coconutX, coconutY, coconutRadius, 0, Math.PI * 2);
-      ctx.fillStyle = "#A0522D"; // Brown coconut
-      ctx.fill();
-      ctx.closePath();
+      const imageWidth = 50; // Adjust the size of the head image
+      const imageHeight = 50;
+
+      ctx.save(); // Save the canvas state
+      ctx.translate(coconutX + imageWidth / 2, coconutY + imageHeight / 2); // Move to the center of the image
+      ctx.rotate(rotation); // Rotate the canvas
+      ctx.drawImage(headImage, -imageWidth / 2, -imageHeight / 2, imageWidth, imageHeight); // Draw the image
+      ctx.restore(); // Restore the canvas state
+
+      rotation += 0.1; // Increment the rotation angle to spin the image
     }
 
     // Display the score
@@ -159,12 +168,12 @@
       coconutY += coconutSpeed;
 
       if (
-        coconutY + coconutRadius >= canvas.height - basketHeight - 10 &&
+        coconutY + 50 >= canvas.height - basketHeight - 10 && // Account for image height
         coconutX >= basketX &&
         coconutX <= basketX + basketWidth
       ) {
         score++;
-        coconutX = Math.random() * (canvas.width - 20);
+        coconutX = Math.random() * (canvas.width - 50); // Reset position
         coconutY = 0;
       }
 
@@ -181,15 +190,16 @@
     function resetGame() {
       isGameOver = false;
       score = 0;
-      coconutX = Math.random() * (canvas.width - 20);
+      coconutX = Math.random() * (canvas.width - 50);
       coconutY = 0;
       updateGame();
     }
 
     // Initial start message
-    displayMessage("Catch 8 coconuts to be cleared to cycle. Click to begin!");
+    displayMessage("Catch 8 coconuts to be cleared. Click to begin!");
   </script>
 </body>
 </html>
+
 
 
