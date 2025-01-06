@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Catch the Coconut - Cycling Sobriety Test</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* Game styles */
+    #gameCanvas {
+      background-color: #87CEEB; /* Light blue sky */
+      border: 2px solid #008080;
+      display: block;
+      margin: 2rem auto;
+    }
+    #score {
+      text-align: center;
+      font-family: 'Comic Sans MS', sans-serif;
+      font-size: 1.5rem;
+      margin-top: 1rem;
+      color: #008080;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Catch the Coconut</h1>
+    <p>Move the basket to catch as many coconuts as you can!</p>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="team.html">Meet the Team</a></li>
+        <li><a href="game.html">Play the Game</a></li>
+      </ul>
+    </nav>
+  </header>
+  <main>
+    <canvas id="gameCanvas" width="400" height="500"></canvas>
+    <p id="score">Score: 0</p>
+  </main>
+  <footer>
+    <p>© 2025 Swaying Palms LLC. Keep catching those coconuts!</p>
+  </footer>
+  <script>
+    // JavaScript for the game
+    const canvas = document.getElementById("gameCanvas");
+    const ctx = canvas.getContext("2d");
+
+    // Game variables
+    let basketX = canvas.width / 2 - 50;
+    const basketWidth = 100;
+    const basketHeight = 20;
+    const basketSpeed = 20;
+
+    let coconutX = Math.random() * (canvas.width - 20);
+    let coconutY = 0;
+    const coconutRadius = 10;
+    const coconutSpeed = 3;
+
+    let score = 0;
+
+    // Draw the basket
+    function drawBasket() {
+      ctx.fillStyle = "#8B4513"; // Brown basket
+      ctx.fillRect(basketX, canvas.height - basketHeight - 10, basketWidth, basketHeight);
+    }
+
+    // Draw the coconut
+    function drawCoconut() {
+      ctx.beginPath();
+      ctx.arc(coconutX, coconutY, coconutRadius, 0, Math.PI * 2);
+      ctx.fillStyle = "#A0522D"; // Brown coconut
+      ctx.fill();
+      ctx.closePath();
+    }
+
+    // Move the basket
+    document.addEventListener("keydown", function (event) {
+      if (event.key === "ArrowLeft" && basketX > 0) {
+        basketX -= basketSpeed;
+      }
+      if (event.key === "ArrowRight" && basketX < canvas.width - basketWidth) {
+        basketX += basketSpeed;
+      }
+    });
+
+    // Update the game
+    function updateGame() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      drawBasket();
+      drawCoconut();
+
+      // Move the coconut
+      coconutY += coconutSpeed;
+
+      // Check for collision with the basket
+      if (
+        coconutY + coconutRadius >= canvas.height - basketHeight - 10 &&
+        coconutX >= basketX &&
+        coconutX <= basketX + basketWidth
+      ) {
+        score++;
+        document.getElementById("score").textContent = "Score: " + score;
+        coconutX = Math.random() * (canvas.width - 20);
+        coconutY = 0;
+      }
+
+      // Reset the coconut if it falls off the screen
+      if (coconutY > canvas.height) {
+        coconutX = Math.random() * (canvas.width - 20);
+        coconutY = 0;
+      }
+
+      requestAnimationFrame(updateGame);
+    }
+
+    // Start the game
+    updateGame();
+  </script>
+</body>
+</html>
