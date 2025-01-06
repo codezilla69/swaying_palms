@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Swaying Palms Boutique</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      text-align: center;
+    }
+    .product-container {
+      max-width: 600px;
+      margin: 50px auto;
+      padding: 20px;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+    .product-image {
+      width: 100%;
+      border-radius: 10px;
+    }
+    .product-description {
+      font-size: 1.2rem;
+      color: #007bff;
+      cursor: pointer;
+      text-decoration: underline;
+      margin: 10px 0;
+    }
+    .product-price {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #28a745;
+    }
+    .venmo-link {
+      display: inline-block;
+      margin-top: 20px;
+      font-size: 1rem;
+      color: #007bff;
+      text-decoration: none;
+    }
+    .venmo-link:hover {
+      text-decoration: underline;
+    }
+  </style>
+  <script>
+    function showPopup() {
+      alert("Please send the item description and value to receive a photo of the item.");
+    }
+  </script>
+</head>
+<body>
+  <div class="product-container">
+    <img src="product.jpg" alt="Product Image" class="product-image">
+    <p class="product-description" onclick="showPopup()">Amazing Product Description</p>
+    <p class="product-price">$99.99</p>
+    <a href="https://venmo.com/u/Kyle-Palm" target="_blank" class="venmo-link">Send Payment via Venmo</a>
+  </div>
+</body>
+</html>
