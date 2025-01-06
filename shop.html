@@ -4,90 +4,61 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Swaying Palms Boutique</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-      text-align: center;
-    }
-    .product-container {
-      max-width: 600px;
-      margin: 50px auto;
-      padding: 20px;
-      border: 1px solid #ddd;
-      border-radius: 10px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    }
-    .product-image {
-      width: 100%;
-      border-radius: 10px;
-    }
-    .product-description {
-      font-size: 1.2rem;
-      color: #007bff;
-      cursor: pointer;
-      text-decoration: underline;
-      margin: 10px 0;
-    }
-    .product-price {
-      font-size: 1.5rem;
-      font-weight: bold;
-      color: #28a745;
-    }
-    .venmo-link {
-      display: inline-block;
-      margin-top: 20px;
-      font-size: 1rem;
-      color: #007bff;
-      text-decoration: none;
-    }
-    .venmo-link:hover {
-      text-decoration: underline;
-    }
-  </style>
-  <script>
-    function showPopup() {
-      alert("Please send the item description and value to the venmo link below to receive a photo of the item.");
-    }
-  </script>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <header>
-        <h1>Catch 8 Coconuts to be Cleared</h1>
-        <p>Move the basket to catch as many coconuts as you can!</p>
-        <nav>
-          <ul>
-            <li><a href="index.html">Home</a></li>
-            <li><a href="game.html">Cycling Sobriety Test</a></li>
-            <li><a href="shop.html">Merch</a></li>
-            <li><a href="team.html">Meet the Team</a></li>
-          </ul>
-        </nav>
-      </header>
-  <div class="product-container">
-    <img src="Swaying_Palms_Sunnies.png" alt="Product Image" class="product-image">
-    <p class="product-description" onclick="showPopup()">Look cooler than you feel, even though they do absolutely nothing for your eyesight. Perfect for blocking out the sun and your responsibilities.</p>
-    <p class="product-price">$99.99</p>
-    <a href="https://venmo.com/u/Kyle-Palm" target="_blank" class="venmo-link">Send Payment via Venmo</a>
-  </div>
-  <div class="product-container">
-    <img src="Swaying_Palms_Flippies.png" alt="Product Image" class="product-image">
-    <p class="product-description" onclick="showPopup()">These flip flops won’t make you a beach expert, but they’ll sure make you look like one.</p>
-    <p class="product-price">$29.99</p>
-    <a href="https://venmo.com/u/Kyle-Palm" target="_blank" class="venmo-link">Send Payment via Venmo</a>
-  </div>
-  <div class="product-container">
-    <img src="Swaying_Palms_Coconut.png" alt="Product Image" class="product-image">
-    <p class="product-description" onclick="showPopup()">Comes with a hard shell, but no real life advice.</p>
-    <p class="product-price">$499.99</p>
-    <a href="https://venmo.com/u/Kyle-Palm" target="_blank" class="venmo-link">Send Payment via Venmo</a>
-  </div>
-  <div class="product-container">
-    <img src="palm-trees.jpg" alt="Product Image" class="product-image">
-    <p class="product-description" onclick="showPopup()">Help us ensure that the palms always sway with your generous donation. Every dollar goes directly toward maintaining the sacred art of swaying palms. Because without the constant, soothing sway of the palm trees, how would we ever know what true relaxation feels like? Your contribution is vital to keeping the island vibes alive. Join us in this critical mission—one sway at a time!</p>
-    <p class="product-price">$1.00</p>
-    <a href="https://venmo.com/u/Kyle-Palm" target="_blank" class="venmo-link">Send Payment via Venmo</a>
-  </div>
+  <header>
+    <h1>Swaying Palms Boutique</h1>
+    <p>Your destination for all things swaying palms!</p>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="game.html">Cycling Sobriety Test</a></li>
+        <li><a href="shop.html">Merch</a></li>
+        <li><a href="team.html">Meet the Team</a></li>
+      </ul>
+    </nav>
+  </header>
+  <main>
+    <!-- Merchandise Section -->
+    <section id="merch">
+      <h2>Our Products</h2>
+      
+      <!-- Product 1 -->
+      <div class="product-container">
+        <img src="Swaying_Palms_Sunnies.png" alt="Swaying Palms Sunglasses" class="product-image">
+        <p class="product-description" onclick="showPopup()">Look cooler than you feel, even though they do absolutely nothing for your eyesight. Perfect for blocking out the sun and your responsibilities.</p>
+        <p class="product-price">$99.99</p>
+        <a href="https://venmo.com/u/Kyle-Palm" target="_blank" class="venmo-link">Send Payment via Venmo</a>
+      </div>
+
+      <!-- Product 2 -->
+      <div class="product-container">
+        <img src="Swaying_Palms_Flippies.png" alt="Swaying Palms Flip Flops" class="product-image">
+        <p class="product-description" onclick="showPopup()">These flip flops won’t make you a beach expert, but they’ll sure make you look like one.</p>
+        <p class="product-price">$29.99</p>
+        <a href="https://venmo.com/u/Kyle-Palm" target="_blank" class="venmo-link">Send Payment via Venmo</a>
+      </div>
+
+      <!-- Product 3 -->
+      <div class="product-container">
+        <img src="Swaying_Palms_Coconut.png" alt="Swaying Palms Coconut" class="product-image">
+        <p class="product-description" onclick="showPopup()">Comes with a hard shell, but no real life advice.</p>
+        <p class="product-price">$499.99</p>
+        <a href="https://venmo.com/u/Kyle-Palm" target="_blank" class="venmo-link">Send Payment via Venmo</a>
+      </div>
+
+      <!-- Donation Section -->
+      <div class="product-container">
+        <img src="palm-trees.jpg" alt="Palm Trees" class="product-image">
+        <p class="product-description" onclick="showPopup()">Help us ensure that the palms always sway with your generous donation. Every dollar goes directly toward maintaining the sacred art of swaying palms.</p>
+        <p class="product-price">$1.00</p>
+        <a href="https://venmo.com/u/Kyle-Palm" target="_blank" class="venmo-link">Send Payment via Venmo</a>
+      </div>
+    </section>
+  </main>
+  <footer>
+    <p>© 2025 Swaying Palms LLC. All rights reserved. Let’s sway the day away!</p>
+  </footer>
 </body>
 </html>
