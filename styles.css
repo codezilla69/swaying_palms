@@ -150,4 +150,26 @@ nav ul li a {
   text-decoration: none;
   font-weight: bold;
 }
- 
+/* Controls Container */
+#controls {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+/* Arrow Buttons */
+#controls button {
+  background-color: #008080;
+  color: #fff;
+  font-size: 1.5rem;
+  border: none;
+  border-radius: 10px;
+  padding: 10px 20px;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+#controls button:active {
+  background-color: #006666;
+}
