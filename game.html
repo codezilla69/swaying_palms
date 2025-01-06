@@ -13,12 +13,24 @@
       display: block;
       margin: 2rem auto;
     }
-    #score {
-      text-align: center;
-      font-family: 'Comic Sans MS', sans-serif;
-      font-size: 1.5rem;
+    #controls {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
       margin-top: 1rem;
-      color: #008080;
+    }
+    #controls button {
+      background-color: #008080;
+      color: #fff;
+      font-size: 1.5rem;
+      border: none;
+      border-radius: 10px;
+      padding: 10px 20px;
+      cursor: pointer;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+    #controls button:active {
+      background-color: #006666;
     }
   </style>
 </head>
@@ -30,14 +42,13 @@
       <ul>
         <li><a href="index.html">Home</a></li>
         <li><a href="team.html">Meet the Team</a></li>
-        <li><a href="game.html">Play the Game</a></li>
+        <li><a href="game.html">Cycling Sobriety Test</a></li>
       </ul>
     </nav>
   </header>
   <main>
     <canvas id="gameCanvas" width="400" height="500"></canvas>
-    <p id="score">Score: 0</p>
-  
+
     <!-- On-screen Controls -->
     <div id="controls">
       <button id="leftButton">⬅️</button>
@@ -51,27 +62,28 @@
     // Select canvas and context
     const canvas = document.getElementById("gameCanvas");
     const ctx = canvas.getContext("2d");
-  
+
     // Game variables
     let basketX = canvas.width / 2 - 50;
     const basketWidth = 100;
     const basketHeight = 20;
     const basketSpeed = 20;
-  
+
     let coconutX = Math.random() * (canvas.width - 20);
     let coconutY = 0;
     const coconutRadius = 10;
-    let coconutSpeed = 3; // Starting speed of the coconut
-  
+    let coconutSpeed = 3;
+
     let score = 0;
     let isGameOver = false;
-  
+    let isGameStarted = false;
+
     // Draw the basket
     function drawBasket() {
       ctx.fillStyle = "#8B4513"; // Brown basket
       ctx.fillRect(basketX, canvas.height - basketHeight - 10, basketWidth, basketHeight);
     }
-  
+
     // Draw the coconut
     function drawCoconut() {
       ctx.beginPath();
@@ -80,27 +92,23 @@
       ctx.fill();
       ctx.closePath();
     }
-  
+
     // Display the score
     function drawScore() {
       ctx.font = "20px Comic Sans MS";
       ctx.fillStyle = "#008080";
       ctx.fillText("Score: " + score, 10, 30);
     }
-  
-    // Display Game Over message
-    function displayGameOver() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear the canvas
-      ctx.font = "30px Comic Sans MS";
+
+    // Display Game Over or Start Message
+    function displayMessage(message) {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.font = "20px Comic Sans MS";
       ctx.fillStyle = "#FF6347"; // Red color for the message
       ctx.textAlign = "center";
-      ctx.fillText("Game Over!", canvas.width / 2, canvas.height / 2 - 20);
-      ctx.fillText("Your Score: " + score, canvas.width / 2, canvas.height / 2 + 20);
-      ctx.font = "20px Comic Sans MS";
-      ctx.fillStyle = "#008080"; // Teal for the restart button
-      ctx.fillText("Press R to Restart", canvas.width / 2, canvas.height / 2 + 60);
+      ctx.fillText(message, canvas.width / 2, canvas.height / 2);
     }
-  
+
     // Move the basket
     document.addEventListener("keydown", function (event) {
       if (event.key === "ArrowLeft" && basketX > 0) {
@@ -109,47 +117,66 @@
       if (event.key === "ArrowRight" && basketX < canvas.width - basketWidth) {
         basketX += basketSpeed;
       }
-  
-      // Restart the game if R is pressed
-      if (isGameOver && event.key === "r") {
+    });
+
+    // On-screen button controls
+    const leftButton = document.getElementById("leftButton");
+    const rightButton = document.getElementById("rightButton");
+
+    leftButton.addEventListener("click", () => {
+      if (basketX > 0) {
+        basketX -= basketSpeed;
+      }
+    });
+
+    rightButton.addEventListener("click", () => {
+      if (basketX < canvas.width - basketWidth) {
+        basketX += basketSpeed;
+      }
+    });
+
+    // Start the game on click
+    canvas.addEventListener("click", () => {
+      if (!isGameStarted) {
+        isGameStarted = true;
+        updateGame();
+      }
+      if (isGameOver) {
         resetGame();
       }
     });
-  
+
     // Update the game
     function updateGame() {
       if (isGameOver) return;
-  
+
       ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear the canvas
       drawBasket();
       drawCoconut();
       drawScore();
-  
-      // Move the coconut
+
       coconutY += coconutSpeed;
-  
-      // Check for collision with the basket
+
       if (
         coconutY + coconutRadius >= canvas.height - basketHeight - 10 &&
         coconutX >= basketX &&
         coconutX <= basketX + basketWidth
       ) {
         score++;
-        coconutSpeed += 0.5; // Speed up the coconut
+        coconutSpeed += 0.5;
         coconutX = Math.random() * (canvas.width - 20);
         coconutY = 0;
       }
-  
-      // Check if the coconut hits the ground
+
       if (coconutY > canvas.height) {
         isGameOver = true;
-        displayGameOver();
+        displayMessage("Game Over! Click to Restart.");
         return;
       }
-  
+
       requestAnimationFrame(updateGame);
     }
-  
+
     // Reset the game
     function resetGame() {
       isGameOver = false;
@@ -159,9 +186,10 @@
       coconutY = 0;
       updateGame();
     }
-  
-    // Start the game
-    updateGame();
-  </script>  
+
+    // Initial start message
+    displayMessage("Catch 8 coconuts to be cleared to cycle. Click to begin!");
+  </script>
 </body>
 </html>
+
