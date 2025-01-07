@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Swaying Palms Trivia</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* Additional styles for the countdown page */
+    .countdown-container {
+      text-align: center;
+      margin-top: 50px;
+    }
+
+    .countdown-container img {
+      max-width: 300px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      margin-bottom: 20px;
+    }
+
+    .coming-soon {
+      font-size: 1.5rem;
+      color: #008080;
+      margin: 20px 0;
+    }
+
+    .countdown {
+      font-size: 2rem;
+      font-weight: bold;
+      color: #ff4500;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Swaying Palms LLC</h1>
+    <p>Your ticket to sipping coconuts under swaying palms!</p>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="game.html">Cycling Sobriety Test</a></li>
+        <li><a href="shop.html">Merch</a></li>
+        <li><a href="team.html">Meet the Team</a></li>
+      </ul>
+    </nav>
+  </header>
+  <main>
+    <div class="countdown-container">
+      <img src="construction.jpg" alt="Under Construction">
+      <p class="coming-soon">Coming soon ;)</p>
+      <p class="countdown" id="countdown"></p>
+    </div>
+  </main>
+  <footer>
+    <p>© 2025 Swaying Palms LLC. All rights reserved. Let’s sway the day away!</p>
+  </footer>
+
+  <script>
+    // Countdown Timer
+    const countdownElement = document.getElementById('countdown');
+    const targetDate = new Date('May 30, 2025 21:00:00 EDT').getTime();
+
+    function updateCountdown() {
+      const now = new Date().getTime();
+      const distance = targetDate - now;
+
+      if (distance > 0) {
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        countdownElement.innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+      } else {
+        countdownElement.innerHTML = 'The trivia is live!';
+      }
+    }
+
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
+  </script>
+</body>
+</html>
