@@ -5,81 +5,111 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Swaying Palms Trivia</title>
   <link rel="stylesheet" href="styles.css">
-  <style>
-    /* Additional styles for the countdown page */
-    .countdown-container {
-      text-align: center;
-      margin-top: 50px;
-    }
-
-    .countdown-container img {
-      max-width: 300px;
-      border-radius: 10px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-      margin-bottom: 20px;
-    }
-
-    .coming-soon {
-      font-size: 1.5rem;
-      color: #008080;
-      margin: 20px 0;
-    }
-
-    .countdown {
-      font-size: 2rem;
-      font-weight: bold;
-      color: #ff4500;
-    }
-  </style>
 </head>
 <body>
   <header>
     <h1>Swaying Palms Trivia</h1>
     <p>Do you know how to sway?</p>
-    <nav>
-      <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="game.html">Cycling Sobriety Test</a></li>
-        <li><a href="trivia.html">Trivia</a></li>
-        <li><a href="shop.html">Merch</a></li>
-        <li><a href="team.html">Meet the Team</a></li>
-      </ul>
-    </nav>
   </header>
   <main>
-    <div class="countdown-container">
-      <img src="construction.JPG" alt="Under Construction">
-      <p class="coming-soon">Coming soon ;)</p>
-      <p class="countdown" id="countdown"></p>
+    <div id="game-container">
+      <div id="question-container">
+        <h2 id="question">Question will appear here</h2>
+        <div id="answers"></div>
+      </div>
+      <button id="next-button" style="display:none;">Next</button>
+      <div id="score-container" style="display:none;">
+        <h2>Your Score: <span id="score">0</span>/10</h2>
+        <button onclick="location.reload()">Play Again</button>
+      </div>
     </div>
   </main>
   <footer>
-    <p>© 2025 Swaying Palms LLC. All rights reserved. Let’s sway the day away!</p>
+    <p>© 2025 Swaying Palms LLC. Let’s sway the day away!</p>
   </footer>
 
   <script>
-    // Countdown Timer
-    const countdownElement = document.getElementById('countdown');
-    const targetDate = new Date('May 30, 2025 21:00:00 EDT').getTime();
+    const triviaData = [
+      // Data from Excel file will be inserted here
+      {"question": "Which U.S. president considered Cape May his \"Summer White House\"?", "correct": "Benjamin Harrison", "incorrect": ["Don Trump", "Grover Cleveland", "William McKinley"]},
+      {"question": "Cape May is known for its Victorian architecture. What major event caused its rise?", "correct": "The Great Fire of 1878", "incorrect": ["The Great Hurricane of 1878", "The Great Earthquake of 1878", "A major influx of European settlers who brought new styles"]},
+      {"question": "What is the name of the nature preserve known for birdwatching in Cape May?", "correct": "Cape May Point State Park", "incorrect": ["Cape May State Park", "Cape May Lighthouse State Park", "Sunset Beach State Park"]},
+      {"question": "What structure circa WWII era is located near Sunset Beach, Cape May?", "correct": "Lookout tower", "incorrect": ["Radar station", "Dispensary", "Lighthouse"]},
+      {"question": "What is the oldest bar in Cape May?", "correct": "C-View Inn", "incorrect": ["The Virginia", "The Mad Batter", "Delaney's"]}
+    ];
 
-    function updateCountdown() {
-      const now = new Date().getTime();
-      const distance = targetDate - now;
+    let shuffledQuestions = [];
+    let currentQuestionIndex = 0;
+    let score = 0;
 
-      if (distance > 0) {
-        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+    function startGame() {
+      shuffledQuestions = triviaData.sort(() => Math.random() - 0.5).slice(0, 10);
+      currentQuestionIndex = 0;
+      score = 0;
+      showQuestion();
+    }
 
-        countdownElement.innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+    function showQuestion() {
+      const questionObj = shuffledQuestions[currentQuestionIndex];
+      const questionElement = document.getElementById("question");
+      const answersElement = document.getElementById("answers");
+      const nextButton = document.getElementById("next-button");
+
+      questionElement.textContent = questionObj.question;
+      answersElement.innerHTML = "";
+      nextButton.style.display = "none";
+
+      const answers = [...questionObj.incorrect, questionObj.correct].sort(() => Math.random() - 0.5);
+
+      answers.forEach(answer => {
+        const button = document.createElement("button");
+        button.textContent = answer;
+        button.classList.add("answer-button");
+        button.onclick = () => selectAnswer(button, questionObj.correct);
+        answersElement.appendChild(button);
+      });
+    }
+
+    function selectAnswer(button, correctAnswer) {
+      const answersElement = document.getElementById("answers");
+      const nextButton = document.getElementById("next-button");
+
+      Array.from(answersElement.children).forEach(child => {
+        child.disabled = true;
+        if (child.textContent === correctAnswer) {
+          child.style.backgroundColor = "#4CAF50"; // Green for correct answer
+        } else {
+          child.style.backgroundColor = "#f44336"; // Red for incorrect answer
+        }
+      });
+
+      if (button.textContent === correctAnswer) {
+        score++;
+      }
+
+      nextButton.style.display = "block";
+    }
+
+    function nextQuestion() {
+      currentQuestionIndex++;
+      if (currentQuestionIndex < shuffledQuestions.length) {
+        showQuestion();
       } else {
-        countdownElement.innerHTML = 'The trivia is live!';
+        showScore();
       }
     }
 
-    setInterval(updateCountdown, 1000);
-    updateCountdown();
+    function showScore() {
+      document.getElementById("question-container").style.display = "none";
+      document.getElementById("next-button").style.display = "none";
+      const scoreContainer = document.getElementById("score-container");
+      scoreContainer.style.display = "block";
+      document.getElementById("score").textContent = score;
+    }
+
+    document.getElementById("next-button").addEventListener("click", nextQuestion);
+
+    startGame();
   </script>
 </body>
 </html>
