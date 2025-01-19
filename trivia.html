@@ -9,13 +9,14 @@
 <body>
   <header>
     <h1>Swaying Palms Trivia</h1>
-    <p>Do you know how to sway?</p>
+    <p>Test your trivia knowledge!</p>
   </header>
   <main>
     <div id="game-container">
       <div id="question-container">
         <h2 id="question">Question will appear here</h2>
         <div id="answers"></div>
+        <p id="feedback" style="display:none; font-weight: bold;"></p>
       </div>
       <button id="next-button" style="display:none;">Next</button>
       <div id="score-container" style="display:none;">
@@ -30,12 +31,16 @@
 
   <script>
     const triviaData = [
-      // Data from Excel file will be inserted here
       {"question": "Which U.S. president considered Cape May his \"Summer White House\"?", "correct": "Benjamin Harrison", "incorrect": ["Don Trump", "Grover Cleveland", "William McKinley"]},
       {"question": "Cape May is known for its Victorian architecture. What major event caused its rise?", "correct": "The Great Fire of 1878", "incorrect": ["The Great Hurricane of 1878", "The Great Earthquake of 1878", "A major influx of European settlers who brought new styles"]},
       {"question": "What is the name of the nature preserve known for birdwatching in Cape May?", "correct": "Cape May Point State Park", "incorrect": ["Cape May State Park", "Cape May Lighthouse State Park", "Sunset Beach State Park"]},
       {"question": "What structure circa WWII era is located near Sunset Beach, Cape May?", "correct": "Lookout tower", "incorrect": ["Radar station", "Dispensary", "Lighthouse"]},
-      {"question": "What is the oldest bar in Cape May?", "correct": "C-View Inn", "incorrect": ["The Virginia", "The Mad Batter", "Delaney's"]}
+      {"question": "What is the oldest bar in Cape May?", "correct": "C-View Inn", "incorrect": ["The Virginia", "The Mad Batter", "Delaney's"]},
+      {"question": "What type of whale is most commonly spotted off Cape May?", "correct": "Humpback whale", "incorrect": ["Blue whale", "Orca", "Gray whale"]},
+      {"question": "Which famous lighthouse is located in Cape May?", "correct": "Cape May Lighthouse", "incorrect": ["Barnegat Lighthouse", "Sandy Hook Lighthouse", "Absecon Lighthouse"]},
+      {"question": "Cape May is part of which US state?", "correct": "New Jersey", "incorrect": ["New York", "Delaware", "Maryland"]},
+      {"question": "What birding festival is held annually in Cape May?", "correct": "Cape May Fall Festival", "incorrect": ["Cape May Bird Fair", "Autumn Bird Fest", "Seaside Bird Festival"]},
+      {"question": "What is Cape May's popular beach known for its sunset views?", "correct": "Sunset Beach", "incorrect": ["Higbee Beach", "Poverty Beach", "Harbor Beach"]}
     ];
 
     let shuffledQuestions = [];
@@ -53,10 +58,12 @@
       const questionObj = shuffledQuestions[currentQuestionIndex];
       const questionElement = document.getElementById("question");
       const answersElement = document.getElementById("answers");
+      const feedbackElement = document.getElementById("feedback");
       const nextButton = document.getElementById("next-button");
 
       questionElement.textContent = questionObj.question;
       answersElement.innerHTML = "";
+      feedbackElement.style.display = "none";
       nextButton.style.display = "none";
 
       const answers = [...questionObj.incorrect, questionObj.correct].sort(() => Math.random() - 0.5);
@@ -72,6 +79,7 @@
 
     function selectAnswer(button, correctAnswer) {
       const answersElement = document.getElementById("answers");
+      const feedbackElement = document.getElementById("feedback");
       const nextButton = document.getElementById("next-button");
 
       Array.from(answersElement.children).forEach(child => {
@@ -84,9 +92,13 @@
       });
 
       if (button.textContent === correctAnswer) {
+        feedbackElement.textContent = "Correct!";
         score++;
+      } else {
+        feedbackElement.textContent = `Incorrect! The correct answer was: ${correctAnswer}`;
       }
 
+      feedbackElement.style.display = "block";
       nextButton.style.display = "block";
     }
 
@@ -113,3 +125,4 @@
   </script>
 </body>
 </html>
+
